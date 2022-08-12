@@ -1,0 +1,171 @@
+/* prevent scrolling */
+body {
+  overflow:hidden;
+}
+
+/*title page*/
+#header {
+  font-family: "Dosis", "verdana", "arial";
+  font-size: 48px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%);
+  animation: fadeIn 3s;
+  margin: auto;
+}
+
+/*title*/
+#title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: hidden;
+  opacity: 1;
+}
+
+/*blog*/
+#blog {
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 1;
+}
+
+/*continue*/
+#continue {
+  font-family: "Dosis", "verdana", "arial";
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  opacity: 1;
+  transform: translate(-50%);
+  margin:auto;
+  text-align:center;
+  animation-delay: 3s;
+  font-size: 15px;
+}
+
+/* img*/
+#img {
+  display: none;
+  width: 300px;
+  height: 300px;
+  transform: rotate(-90deg);
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 2;
+}
+
+/* class for fade in */
+.fadein2 {
+  animation: fadeIn2 5.5s forwards;
+}
+
+/* class for hover2 */
+.hover2 {
+  animation: hover2 6s infinite;
+}
+
+/* move1 */
+.move1 {
+  animation: move1 2s forwards;
+}
+
+/*lasein*/
+.lasein {
+  animation: lasein 10s forwards;
+}
+
+/*animations (startpg)*/
+@keyframes fadeIn{
+  from {
+    opacity: 0;
+    top: 50%;
+  }
+  to {
+    opacity: 1;
+    top: 25%;
+  }
+}
+
+@keyframes fadeIn2{
+  from {
+    opacity: 0;
+    top: 100%;
+  }
+  to {
+    opacity: 1;
+    top: 90%;
+  }
+}
+
+@keyframes hover2 {
+  0% {
+    opacity: 0.1;
+    top: 93%;
+  }
+  25% {
+    opacity: 1;
+    top: 90%;
+  }
+  50% {
+    opacity: 0;
+    top:93%;
+  }
+  75% {
+    opacity: 1;
+    top: 90%;
+  }
+  100% {
+    opacity: 0;
+    top: 93%;
+  }
+}
+
+@keyframes move1 {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes lasein {
+  30% {
+    transform: translate(0px, -400px);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  70% {
+    transform: translate(0px, -700px);
+  }
+  100% {
+    transform: translate(0px, -200px) rotate(270deg);
+  }
+}
+
+/* Mobile */
+
+@media (pointer:none), (pointer:coarse) {
+  #continue {
+    font-family: "Dosis", "verdana", "arial";
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    opacity: 1;
+    transform: translate(-50%);
+    margin:auto;
+    text-align:center;
+    animation-delay: 3s;
+    font-size: 35px;
+  }
+  #blog {
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 1;
+    font-size: 50px;
+  }
+}

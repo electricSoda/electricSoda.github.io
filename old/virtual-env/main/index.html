@@ -1,0 +1,185 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>< > Justin's Virtual Environment</title>
+  <meta name="description" content="Justin's Virtual Environment">
+  <meta name="author" content="© Justin Ge 2021. All rights reserved.">
+  <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+
+  <link rel="stylesheet" href="main.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+</head>
+
+<body>
+  <!-- Top Nav -->
+  <nav>
+    <div id="nav-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div id = 'logo'>
+      <h3 id='e'> < > Justin's Virtual</h3>
+      <h3 id="place">Environment</h3>
+    </div>
+
+    <div id='areas'>
+      <ul class = "nav-links">
+        <li>
+          <a id='ca' class='lut'>Projects</a>
+        </li>
+        <li>
+          <a id='ex' class='lut'>Experiments</a>
+        </li>
+        <li>
+          <a id='up' class='lut'>Updates</a>
+        </li>
+        <li>
+          <a id='abt' class='lut'>About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class='sidenav'>
+    <ul id='e'>
+      <li>
+        <a id='ca2' class='lut'>Projects</a>
+      </li>
+      <li>
+        <a id='ex2' class='lut'>Experiments</a>
+      </li>
+      <li>
+        <a id='up2' class='lut'>Updates</a>
+      </li>
+      <li>
+        <a id='abt2' class='lut'>About</a>
+      </li>
+    </ul>
+  </div>
+
+  <!--contact-->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div id='cont'></div>
+    </div>
+  </div>
+
+  <!--canvas-->
+  <div id='first'>
+    <div id='text'>
+      <h3>Yo.</h3>
+      <h3>My name is Justin Ge.</h3>
+      <h3>Your typical guy in an unusual world.</h3>
+      <h3>Nevertheless, welcome to my site.</h3>
+
+    </div>
+    <a id='set'><img src='settings.png'></a>
+    <canvas id='canvas1'></canvas>
+  </div>
+
+  <!--projects-->
+  <div id='projects'>
+    <h2 class='header'>Projects</h2>
+    <div id='prod'>
+      <div class="card 1" id='tp'>
+        <a href='https://typingm.glitch.me/'></a>
+        <div class="card_image"> <img src="https://i.redd.it/b3esnz5ra34y.jpg" /> </div>
+        <div class="card_title title-white">
+          <p>Typing Multiplayer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--experiments-->
+  <div id='experiments'>
+    <h2>Experiments</h2>
+    <div class="card 2 c2">
+      <a href='https://typingm.glitch.me/'></a>
+      <div class="card_image"> <img src="https://static.thenounproject.com/png/883149-200.png" /> </div>
+      <div class="card_title title-black">
+        <p>Webscraping Typing Tests</p>
+      </div>
+    </div>
+  </div>
+
+  <!--updates-->
+  <div id='updates'>
+    <h2>Updates</h2>
+    <ul id='upd'></ul>
+    <div id='owner'></div>
+  </div>
+
+  <!--about-->
+  <div id='about'>
+    <h2>About</h2>
+    <p> Hey! 👋 </p>
+    <p> My name is Justin Ge, and coding is my number one passion. I simply love working with coding logic and creating things, games above all.</p>
+    <p> I work with Python, C++, Java (a teensy bit), Javascript, HTML, CSS, PHP, and I love learning new languages!</p>
+    <p> Aside from coding, I also love to play soccer, creating little organizations, playing piano and violin, and enjoying the outdoors.</p>
+    <img src='donkey.png'>
+    <p>Definitely me... xD</p>
+  </div>
+
+  <!-- Media -->
+  <div id='socials'>
+    <h2>Find me on these platforms...</h2>
+    <button id='github' onclick='github()'></button>
+    <button id='discord' onclick='discord()'></button>
+    <button id='youtube' onclick='youtube()'></button>
+  </div>
+
+<!-- footer -->
+<div id='footer'>
+  <button id='con'>Contact Me!</button>
+  <hr />
+
+  <a>Copyright </a>
+  &copy;
+  <a id='year'></a>
+  <a> Justin Ge.</a>
+  <a> All rights reserved.</a>
+  <p id='dis'>Disclaimer</p>
+  <p id='att'>Attributes</p>
+  <p id='o'>Update login</p>
+
+  <!-- Scripts -->
+  <!--firebase SDK -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <!--<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-analytics.js"></script>-->
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyB-2_2iN8GOfMkwnvnlCmQkpaSx0d2i9js",
+      authDomain: "jve-updates.firebaseapp.com",
+      projectId: "jve-updates",
+      storageBucket: "jve-updates.appspot.com",
+      messagingSenderId: "50745137985",
+      appId: "1:50745137985:web:40bb64acff566427775fc0",
+      measurementId: "G-4S6KSHVD1B"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    //firebase.analytics();
+  </script>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

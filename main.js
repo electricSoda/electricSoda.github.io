@@ -29,7 +29,6 @@ const resize = () => {
 	update()
 }
 
-window.onload = () => {resize()}
 window.addEventListener("resize", resize)
 
 // Create node
@@ -88,32 +87,22 @@ class Node {
 	}
 
 	explode () {
-		this.x -= 15
-		this.y -= 15
-		this.size += 30
-	}
-
-	implode () {
-		this.size -= 20
-		this.x -= 10
-		this.y -= 10
+		this.x -= 30
+		this.y -= 30
+		this.size += 60
 	}
 }
 
 let explode, implode = false
 
 var nodes = 100
-var radius = 200 // px
+var radius = 200
 
 canvas.addEventListener("click", () => {
 	explode = true
 
 	setTimeout(() => {
-		explode = false
-		implode = true
-		setTimeout(() => {
-			document.location.href="/main"
-		}, 1000)
+		document.location.href="/main"
 	}, 1000)
 })
 
@@ -147,7 +136,22 @@ const init = () => {
 	update()
 }
 
-init()
+window.onload = () => {
+	canvas.width = window.innerWidth
+	canvas.height = window.innerHeight
+	c.w = canvas.width
+	c.h = canvas.height
+
+	c.cx = c.w/2
+	c.cy = c.h/2
+
+	if (c.w > c.h) {
+		radius = c.h * 0.2
+	} else {
+		radius = c.w * 0.15
+	}
+	init()
+}
 
 document.querySelectorAll("a")[0].addEventListener("click", () => {
 	document.location.href= "/old"

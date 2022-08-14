@@ -157,7 +157,7 @@ document.querySelectorAll("a")[0].addEventListener("click", () => {
 	document.location.href= "/old"
 })
 
-let cycle = ["click anywhere to continue", "still here?", "well hi", "uhhhh", "soo", "i'm lazy", "so i'm", "going", "to work on this", "later"]
+let cycle = ["click anywhere to continue", "still here?", "well hi", "this is confusing", "especially for a site", "but uh", "i'm going", "to work on this", "and make", "cool physics", "with this sphere"]
 let index = 0
 
 const popup = document.getElementById("popup")

@@ -1,171 +1,70 @@
-// Misc functions
-function getRandom(min, max) {
-    return Math.round(Math.random() * (max - min)) + min;
+import * as THREE from './js/three.module.js';
+import { OrbitControls } from './js/OrbitControls.js';
+
+// Select the container for the scene
+const container = document.getElementById('bg');
+
+// Create the scene, camera, and renderer
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+container.appendChild(renderer.domElement);
+
+// Load the panoramic image and create a texture
+const loader = new THREE.TextureLoader();
+const texture = loader.load('pana.jpg');
+
+// Create a spherical geometry and map the texture to it
+const geometry = new THREE.SphereGeometry(500, 60, 40);
+
+// Flip the geometry inside out
+geometry.scale(-1, 1, 1);
+
+const material = new THREE.MeshBasicMaterial({
+    map: texture
+});
+
+const sphere = new THREE.Mesh(geometry, material);
+scene.add(sphere);
+
+// Set up the camera and controls
+camera.position.set(0, 0, 0.1);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableZoom = false;
+controls.enablePan = false;
+
+controls.rotateSpeed = 0.3;
+
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// Get canvas
-const canvas = document.getElementById("c")
-const ctx = canvas.getContext("2d")
+window.addEventListener('resize', onWindowResize, false);
 
-// Canvas 
-let c = {
-	w: null,
-	h: null,
-	cx: null,
-	cy: null,
-	e: [],
+// Animation loop
+let lastTime = 0;
+const rotationSpeed = 0.00005;
+
+function animate(time) {
+    const delta = time - lastTime;
+    lastTime = time;
+    requestAnimationFrame(animate);
+
+    sphere.rotation.y += rotationSpeed * delta;
+
+    controls.update();
+    renderer.render(scene, camera);
 }
 
-// Resize
-const resize = () => {
-	canvas.width = window.innerWidth
-	canvas.height = window.innerHeight
-	c.w = canvas.width
-	c.h = canvas.height
+animate(0);
 
-	c.cx = c.w/2
-	c.cy = c.h/2
 
-	update()
-}
 
-window.addEventListener("resize", resize)
 
-// Create node
-class Node {
-	constructor (x, y) {
-		this.x = x
-		this.y = y
-		this.original = {x: this.x, y: this.y}
-		this.newpos = {}
-		this.size = 4
-	}
 
-	draw() {
-		if (Object.keys(this.newpos).length !== 0) {
-			if (this.x != this.newpos.x && this.y != this.newpos.y) {
-				if ((this.newpos.x - this.x) < 0) {
-					this.x -= 1
-				} else {
-					this.x += 1
-				}
 
-				if ((this.newpos.y - this.y) < 0) {
-					this.y -= 1
-				} else {
-					this.y += 1
-				}
-			}
-		}
-
-		ctx.fillRect(this.x, this.y, this.size, this.size)
-	}
-
-	idle() {
-		// do something to make it go in a direction until it 
-		// hits bounding box and then make it go in a different direction
-
-		let x = getRandom(0, 3)
-
-		if (x == 0) {
-			if (!(this.x + 1 - this.original.x > 15)) {
-				this.x += 1
-			}
-		} else if (x == 1) {
-			if (!(this.x - 1 - this.original.x < -15)) {
-				this.x -= 1
-			}
-		} else if (x == 2) {
-			if (!(this.y + 1 - this.original.y > 15)) {
-				this.y += 1
-			}
-		} else if (x == 3) {
-			if (!(this.y - 1 - this.original.y < -15)) {
-				this.y -= 1
-			}
-		}
-	}
-
-	explode () {
-		this.x -= 30
-		this.y -= 30
-		this.size += 60
-	}
-}
-
-let explode, implode = false
-
-var nodes = 100
-var radius = 200
-
-canvas.addEventListener("click", () => {
-	explode = true
-
-	setTimeout(() => {
-		document.location.href="/main"
-	}, 1000)
-})
-
-const update = () => {
-	ctx.clearRect(0, 0, c.w, c.h)
-
-	ctx.translate(c.cx, c.cy)
-	for (let i=0; i < c.e.length; i++) {
-		c.e[i].draw()
-		c.e[i].idle()
-		if (explode == true)
-			c.e[i].explode()
-		if (implode == true)
-			c.e[i].implode()
-	}
-	ctx.translate(-c.cx, -c.cy)
-	window.requestAnimationFrame(update)
-}
-
-// Initialize
-const init = () => {
-	let angle = 2 * Math.PI / nodes
-
-	for (let i=1; i <= nodes; i++) {
-		xoffset = getRandom(0, 5)
-		yoffset = getRandom(0, 5)
-
-		c.e.push(new Node(Math.round(radius * Math.cos(i * angle)), Math.round(radius * Math.sin(i * angle))))
-	}
-
-	update()
-}
-
-window.onload = () => {
-	canvas.width = window.innerWidth
-	canvas.height = window.innerHeight
-	c.w = canvas.width
-	c.h = canvas.height
-
-	c.cx = c.w/2
-	c.cy = c.h/2
-
-	if (c.w > c.h) {
-		radius = c.h * 0.2
-	} else {
-		radius = c.w * 0.15
-	}
-	init()
-}
-
-document.querySelectorAll("a")[0].addEventListener("click", () => {
-	document.location.href= "/old"
-})
-
-let cycle = ["click anywhere to continue", "still here?", "well hi", "this is confusing", "especially for a site", "but uh", "i'm going", "to work on this", "and make", "cool physics", "with this sphere"]
-let index = 0
-
-const popup = document.getElementById("popup")
-setInterval(() => {
-	popup.innerText = cycle[index]
-	if (index + 1 >= cycle.length) {
-		index = 0
-	} else {
-		index++
-	}
-}, 5000)

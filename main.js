@@ -9,10 +9,16 @@ const renderer = new THREE.WebGLRenderer();
 
 
 const mouse = new THREE.Vector2();
+var timeout, isMoving = false;
 document.addEventListener( 'mousemove', onMouseMove, false );
 function onMouseMove( event ) {
+    clearTimeout(timeout);
+    timeout = setTimeout(function(){isMoving = false}, 2000);
+
+    isMoving = true;
+
 	mouse.x = ( event.clientX - window.innerWidth/2 );
-	mouse.y = ( event.clientY - window.innerWidth/2 );
+	mouse.y = ( event.clientY - window.innerHeight/2 );
 }
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -55,7 +61,14 @@ function animate(time) {
     lastTime = time;
     requestAnimationFrame(animate);
 
-    sphere.rotation.y += rotationSpeed * delta;
+    if (!isMoving) {
+        sphere.rotation.x = 0;
+        sphere.rotation.y = Math.abs(sphere.rotation.y);
+        sphere.rotation.y += rotationSpeed;
+    }
+
+    sphere.rotation.x += 0.05 * ( (( 1 - mouse.y ) * 0.002) - camera.rotation.x );
+    sphere.rotation.y += 0.05 * ( (( 1 - mouse.x ) * 0.002) - camera.rotation.y );
 
     renderer.render(scene, camera);
 }

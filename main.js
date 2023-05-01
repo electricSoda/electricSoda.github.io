@@ -7,6 +7,14 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
+
+const mouse = new THREE.Vector2();
+document.addEventListener( 'mousemove', onMouseMove, false );
+function onMouseMove( event ) {
+	mouse.x = ( event.clientX - window.innerWidth/2 );
+	mouse.y = ( event.clientY - window.innerWidth/2 );
+}
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 container.appendChild(renderer.domElement);
 

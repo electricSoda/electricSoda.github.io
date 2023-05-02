@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // Select the container for the scene
 const container = document.getElementById('bg');
@@ -7,19 +8,15 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.enableRotate = false;
+controls.enablePan= false;
+controls.enableZoom= false;
 
-const mouse = new THREE.Vector2();
-var timeout, isMoving = false;
-document.addEventListener( 'mousemove', onMouseMove, false );
-function onMouseMove( event ) {
-    clearTimeout(timeout);
-    timeout = setTimeout(function(){isMoving = false}, 2000);
+var click = false;
+document.addEventListener( 'onmousedown', () => {click = true;}, false );
+document.addEventListener( 'onmouseup', () => {click = false;}, false );
 
-    isMoving = true;
-
-	mouse.x = ( event.clientX - window.innerWidth/2 );
-	mouse.y = ( event.clientY - window.innerHeight/2 );
-}
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 container.appendChild(renderer.domElement);
@@ -56,18 +53,16 @@ window.addEventListener('resize', onWindowResize, false);
 let lastTime = 0;
 const rotationSpeed = 0.00005;
 
+controls.update();
 function animate(time) {
     const delta = time - lastTime;
     lastTime = time;
     requestAnimationFrame(animate);
 
-    if (!isMoving) {
+    if (!click) {
         sphere.rotation.x = 0;
         sphere.rotation.y += rotationSpeed * delta;
     }
-
-    // sphere.rotation.x += 0.05 * ( (( 1 - mouse.y ) * 0.002) - camera.rotation.x );
-    // sphere.rotation.y += 0.05 * ( (( 1 - mouse.x ) * 0.002) - camera.rotation.y );
 
     renderer.render(scene, camera);
 }

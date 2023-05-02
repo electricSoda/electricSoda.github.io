@@ -8,7 +8,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 
-const controls = new OrbitControls( camera, renderer.domElement );
+const controls = new OrbitControls( camera, document.getElementById("wrapper") );
 controls.mouseButtons = { ORBIT:THREE.MOUSE.RIGHT };
 
 
@@ -57,12 +57,7 @@ function animate(time) {
     lastTime = time;
     requestAnimationFrame(animate);
 
-    if (!click) {
-        camera.rotation.x = 0;
-        sphere.rotation.y += rotationSpeed * delta;
-    }
-
-    controls.update();
+    sphere.rotation.y += rotationSpeed * delta;
 
     renderer.render(scene, camera);
 }

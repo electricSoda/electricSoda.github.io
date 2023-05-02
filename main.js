@@ -63,12 +63,11 @@ function animate(time) {
 
     if (!isMoving) {
         sphere.rotation.x = 0;
-        sphere.rotation.y = Math.abs(sphere.rotation.y);
-        sphere.rotation.y += rotationSpeed;
+        sphere.rotation.y += rotationSpeed * delta;
     }
 
-    sphere.rotation.x += 0.05 * ( (( 1 - mouse.y ) * 0.002) - camera.rotation.x );
-    sphere.rotation.y += 0.05 * ( (( 1 - mouse.x ) * 0.002) - camera.rotation.y );
+    // sphere.rotation.x += 0.05 * ( (( 1 - mouse.y ) * 0.002) - camera.rotation.x );
+    // sphere.rotation.y += 0.05 * ( (( 1 - mouse.x ) * 0.002) - camera.rotation.y );
 
     renderer.render(scene, camera);
 }

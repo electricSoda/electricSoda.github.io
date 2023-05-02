@@ -9,9 +9,8 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.enableRotate = false;
-controls.enablePan= false;
-controls.enableZoom= false;
+controls.mouseButtons = { ORBIT:THREE.MOUSE.RIGHT };
+
 
 var click = false;
 document.addEventListener( 'onmousedown', () => {click = true;}, false );
@@ -53,16 +52,17 @@ window.addEventListener('resize', onWindowResize, false);
 let lastTime = 0;
 const rotationSpeed = 0.00005;
 
-controls.update();
 function animate(time) {
     const delta = time - lastTime;
     lastTime = time;
     requestAnimationFrame(animate);
 
     if (!click) {
-        sphere.rotation.x = 0;
+        camera.rotation.x = 0;
         sphere.rotation.y += rotationSpeed * delta;
     }
+
+    controls.update();
 
     renderer.render(scene, camera);
 }
